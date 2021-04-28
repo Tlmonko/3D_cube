@@ -1,7 +1,7 @@
 import pygame
 from cube import Cube
 from typing import Tuple, List
-from utils import colors
+from utils import colors, get_plane
 
 WIDTH = 800
 HEIGHT = 600
