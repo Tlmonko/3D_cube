@@ -37,11 +37,22 @@ def draw_cube(cube: Cube) -> None:
 
 cube = Cube()
 print(type(cube))
-cube.rotate(0, 30, 60)
+cube.rotate(0, -30, 60)
 
 FPS = 60
 running = True
 while running:
+    keys = pygame.key.get_pressed()
+    rotation = [0, 0, 0]
+    if keys[pygame.K_RIGHT]:
+        rotation[2] = 1
+    if keys[pygame.K_LEFT]:
+        rotation[2] = -1
+    if keys[pygame.K_UP]:
+        rotation[1] = 1
+    if keys[pygame.K_DOWN]:
+        rotation[1] = -1
+    cube.rotate(*rotation)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
