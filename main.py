@@ -1,6 +1,6 @@
 import pygame
 from cube import Cube
-from typing import Tuple
+from typing import Tuple, List
 from utils import colors
 
 WIDTH = 800
@@ -17,18 +17,22 @@ def calculate_distance(first_coords: Tuple[int, int, int], second_coords: Tuple[
     return ((first_coords[0] - second_coords[0]) ** 2 + (first_coords[1] - second_coords[1]) ** 2 + (first_coords[2] - second_coords[2]) ** 2) ** (1/2)
 
 
-def get_coords(first_coord: Tuple[int, int, int], second_coord: Tuple[int, int, int]) -> Tuple[Tuple[int, int], Tuple[int, int]]:
+def get_coords(first_coord: Tuple[int, int, int]) -> Tuple[int, int]:
     global WIDTH, HEIGHT
-    return (first_coord[0] + WIDTH // 2, first_coord[2] + HEIGHT // 2), (second_coord[0] + WIDTH // 2, second_coord[2] + HEIGHT // 2)
+    return (first_coord[0] + WIDTH // 2, first_coord[2] + HEIGHT // 2)
 
 
 def draw_cube(cube: Cube) -> None:
     for first_node in cube.nodes:
         for second_node in cube.nodes:
             if (int(calculate_distance(first_node, second_node)) - 200) <= 2:
-                coords = get_coords(first_node, second_node)
+                first_coords, second_coords = get_coords(first_node), get_coords(second_node)
                 pygame.draw.line(
-                    screen, colors['white'], coords[0], coords[1])
+                    screen, colors['white'], first_coords, second_coords)
+
+
+def draw_plane(plane_nodes: List[Tuple[int, int, int]], color: str) -> None:
+    pygame.draw.polygon(screen, colors[color], [get_coords(node) for node in plane_nodes])
 
 
 cube = Cube()
@@ -54,8 +58,10 @@ while running:
             running = False
     screen.fill(colors['black'])
     draw_cube(cube)
+    draw_plane(cube.get_plane(1), 'red')
     font = pygame.font.SysFont(None, 24)
-    fps = font.render('FPS: {:.2f}'.format(clock.get_fps()), True, colors['green'])
+    fps = font.render('FPS: {:.2f}'.format(
+        clock.get_fps()), True, colors['green'])
     screen.blit(fps, (20, 20))
     pygame.display.flip()
     clock.tick(FPS)
