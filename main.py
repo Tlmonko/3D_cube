@@ -1,6 +1,7 @@
 import pygame
 from cube import Cube
 from typing import Tuple
+from utils import colors
 
 WIDTH = 800
 HEIGHT = 600
@@ -10,12 +11,6 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("3D Cube")
 clock = pygame.time.Clock()
-
-colors = {
-    'black': (0, 0, 0),
-    'white': (255, 255, 255),
-    'green': (0, 255, 0)
-}
 
 
 def calculate_distance(first_coords: Tuple[int, int, int], second_coords: Tuple[int, int, int]) -> float:
