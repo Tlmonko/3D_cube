@@ -13,7 +13,8 @@ clock = pygame.time.Clock()
 
 colors = {
     'black': (0, 0, 0),
-    'white': (255, 255, 255)
+    'white': (255, 255, 255),
+    'green': (0, 255, 0)
 }
 
 
@@ -58,6 +59,9 @@ while running:
             running = False
     screen.fill(colors['black'])
     draw_cube(cube)
+    font = pygame.font.SysFont(None, 24)
+    fps = font.render('FPS: {:.2f}'.format(clock.get_fps()), True, colors['green'])
+    screen.blit(fps, (20, 20))
     pygame.display.flip()
     clock.tick(FPS)
 
