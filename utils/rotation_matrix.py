@@ -28,6 +28,7 @@ def rotate_x(vector: Tuple[int, int, int], angle: int):
     result = np.dot(vector_np, rotation_matrix).tolist()
     return result[0][0], result[0][1], result[0][2]
 
+
 def rotate_y(vector: Tuple[int, int, int], angle: int):
     """Rotating vector around y axis by a given angle (in degrees)"""
     angle = radians(angle)

@@ -1,6 +1,7 @@
 import pygame
-from cube import Cube
 from typing import Tuple, List
+
+from cube import Cube
 from utils import colors, calculate_distance, Plane
 
 WIDTH = 800
@@ -37,7 +38,7 @@ def draw_cube(cube: Cube) -> None:
 
 def draw_plane(plane_nodes: List[Tuple[int, int, int]], color: str) -> None:
     pygame.draw.polygon(screen, colors[color], [
-                        get_coords(node) for node in plane_nodes])
+        get_coords(node) for node in plane_nodes])
 
 
 cube = Cube()
