@@ -1,3 +1,4 @@
 from .rotation_matrix import *
-from .get_plane import get_plane
+from .plane import Plane
 from .colors import colors
+from .calculate_distance import calculate_distance
