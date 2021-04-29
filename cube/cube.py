@@ -3,12 +3,12 @@ from utils import rotate_z, rotate_y, rotate_x
 
 
 class Cube:
-    center: Tuple[int, int, int]
-    nodes: List[Tuple[int, int, int]]
+    center: Tuple[float, float, float]
+    nodes: List[Tuple[float, float, float]]
     planes: List[List[int]]
 
     def __init__(self) -> None:
-        self.center = (0, 0)
+        self.center = (0.0, 0.0, 0.0)
         self.calculate_nodes()
 
     def calculate_nodes(self) -> None:
@@ -38,5 +38,5 @@ class Cube:
             self.nodes[node] = rotate_x(self.nodes[node], angle_x)
             self.nodes[node] = rotate_y(self.nodes[node], angle_y)
 
-    def get_plane(self, number: int) -> List[Tuple[int, int, int]]:
+    def get_plane(self, number: int) -> List[Tuple[float, float, float]]:
         return [self.nodes[node] for node in self.planes[number]]

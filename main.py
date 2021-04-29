@@ -1,8 +1,9 @@
-import pygame
 from typing import Tuple, List
 
+import pygame
+
 from cube import Cube
-from utils import colors, calculate_distance, Plane
+from utils import colors, calculate_distance
 
 WIDTH = 800
 HEIGHT = 600
@@ -21,9 +22,9 @@ def render_fps(screen: pygame.display, clock: pygame.time.Clock):
     screen.blit(fps, (20, 20))
 
 
-def get_coords(first_coord: Tuple[int, int, int]) -> Tuple[int, int]:
+def get_coords(first_coord: Tuple[float, float, float]) -> Tuple[float, float]:
     global WIDTH, HEIGHT
-    return (first_coord[0] + WIDTH // 2, first_coord[2] + HEIGHT // 2)
+    return first_coord[0] + WIDTH // 2, first_coord[2] + HEIGHT // 2
 
 
 def draw_cube(cube: Cube) -> None:
@@ -36,7 +37,7 @@ def draw_cube(cube: Cube) -> None:
                     screen, colors['white'], first_coords, second_coords)
 
 
-def draw_plane(plane_nodes: List[Tuple[int, int, int]], color: str) -> None:
+def draw_plane(plane_nodes: List[Tuple[float, float, float]], color: str) -> None:
     pygame.draw.polygon(screen, colors[color], [
         get_coords(node) for node in plane_nodes])
 

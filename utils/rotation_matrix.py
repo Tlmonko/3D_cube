@@ -3,7 +3,7 @@ from typing import Tuple
 from math import cos, sin, radians
 
 
-def rotate_z(vector: Tuple[int, int, int], angle: int):
+def rotate_z(vector: Tuple[float, float, float], angle: int) -> Tuple[float, float, float]:
     """Rotating vector around z axis by a given angle (in degrees)"""
     angle = radians(angle)
     vector_np = np.matrix(list(vector))
@@ -16,7 +16,7 @@ def rotate_z(vector: Tuple[int, int, int], angle: int):
     return result[0][0], result[0][1], result[0][2]
 
 
-def rotate_x(vector: Tuple[int, int, int], angle: int):
+def rotate_x(vector: Tuple[float, float, float], angle: int) -> Tuple[float, float, float]:
     """Rotating vector around y axis by a given angle (in degrees)"""
     angle = radians(angle)
     vector_np = np.matrix(list(vector))
@@ -29,7 +29,7 @@ def rotate_x(vector: Tuple[int, int, int], angle: int):
     return result[0][0], result[0][1], result[0][2]
 
 
-def rotate_y(vector: Tuple[int, int, int], angle: int):
+def rotate_y(vector: Tuple[float, float, float], angle: int) -> Tuple[float, float, float]:
     """Rotating vector around y axis by a given angle (in degrees)"""
     angle = radians(angle)
     vector_np = np.matrix(list(vector))
