@@ -2,8 +2,6 @@ from typing import Tuple, List
 
 import numpy as np
 
-from utils import calculate_distance
-
 
 class Plane:
     normal: Tuple[float]
@@ -11,6 +9,12 @@ class Plane:
     edges: List[Tuple[float, float, float]]
 
     def __init__(self, coords: List[Tuple[float, float, float]]):
+        self.__calculate_plane(coords)
+
+    def update(self, new_coords: List[Tuple[float, float, float]]):
+        self.__calculate_plane(new_coords)
+
+    def __calculate_plane(self, coords: List[Tuple[float, float, float]]) -> None:
         first_vector = np.array([coords[0][0] - coords[1][0],
                                  coords[0][1] - coords[1][1], coords[0][2] - coords[1][2]])
         second_vector = np.array([coords[2][0] - coords[1][0],
@@ -20,13 +24,6 @@ class Plane:
         self.coefficient = -(
                 self.normal[0] * coords[3][0] + self.normal[1] * coords[3][1] + self.normal[2] *
                 coords[3][2])
-
-        edges_points = []
-
-        for node in coords:
-            for second_node in coords:
-                if abs(int(calculate_distance(node, second_node)) - 200) <= 2:
-                    edges_points.append((node, second_node))
 
     def ray_intersection(self, point: Tuple[float, float]) -> Tuple[float, float, float]:
         if self.normal[3] == 0:
