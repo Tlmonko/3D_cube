@@ -15,6 +15,7 @@ class Cube:
         self.center = (0.0, 0.0, 0.0)
         self.calculate_nodes()
         self.rotation = [0, 0, 0]
+        self.init_planes()
 
     def calculate_nodes(self) -> None:
         self.nodes = [
@@ -45,11 +46,13 @@ class Cube:
             self.nodes[node] = rotate_z(self.nodes[node], radians(angle_z))
             self.nodes[node] = rotate_x(self.nodes[node], radians(angle_x))
             self.nodes[node] = rotate_y(self.nodes[node], radians(angle_y))
+        self.update_planes()
 
     def get_plane_coords(self, number: int) -> List[Tuple[float, float, float]]:
         return [self.nodes[node] for node in self.planes_points[number]]
 
     def init_planes(self) -> None:
+        self.planes = []
         for plane_index in range(6):
             plane = Plane(self.get_plane_coords(plane_index))
             self.planes.append(plane)

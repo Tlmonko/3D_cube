@@ -26,7 +26,7 @@ class Plane:
                 coords[3][2])
 
     def ray_intersection(self, point: Tuple[float, float]) -> Tuple[float, float, float]:
-        if self.normal[3] == 0:
+        if self.normal[2] == 0:
             return ()
         z_coord: float = (self.normal[0] * point[0] + self.normal[1] * point[
             1] + self.coefficient) / self.normal[2]
