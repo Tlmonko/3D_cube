@@ -43,7 +43,7 @@ def draw_plane(plane_nodes: List[Tuple[float, float, float]], color: str) -> Non
 
 
 cube = Cube()
-cube.rotate(0, -30, 60)
+cube.rotate(-30, 0, 60)
 
 FPS = 60
 running = True
@@ -55,9 +55,9 @@ while running:
     if keys[pygame.K_LEFT]:
         rotation[2] = -1
     if keys[pygame.K_UP]:
-        rotation[1] = 1
+        rotation[0] = 1
     if keys[pygame.K_DOWN]:
-        rotation[1] = -1
+        rotation[0] = -1
     cube.rotate(*rotation)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

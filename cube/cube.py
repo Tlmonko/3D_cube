@@ -1,3 +1,4 @@
+from math import radians
 from typing import List, Tuple
 
 from utils import rotate_z, rotate_y, rotate_x, Plane
@@ -41,9 +42,9 @@ class Cube:
         self.rotation[1] += angle_y
         self.rotation[2] += angle_z
         for node in range(len(self.nodes)):
-            self.nodes[node] = rotate_z(self.nodes[node], angle_z)
-            self.nodes[node] = rotate_x(self.nodes[node], angle_x)
-            self.nodes[node] = rotate_y(self.nodes[node], angle_y)
+            self.nodes[node] = rotate_z(self.nodes[node], radians(angle_z))
+            self.nodes[node] = rotate_x(self.nodes[node], radians(angle_x))
+            self.nodes[node] = rotate_y(self.nodes[node], radians(angle_y))
 
     def get_plane_coords(self, number: int) -> List[Tuple[float, float, float]]:
         return [self.nodes[node] for node in self.planes_points[number]]
