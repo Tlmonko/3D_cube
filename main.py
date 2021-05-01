@@ -64,7 +64,7 @@ while running:
             running = False
     screen.fill(colors['black'])
     draw_cube(cube)
-    draw_plane(cube.get_plane(1), 'red')
+    draw_plane(cube.get_plane_coords(1), 'red')
     render_fps(screen, clock)
     pygame.display.flip()
     clock.tick(FPS)
