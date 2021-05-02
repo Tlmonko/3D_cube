@@ -1,9 +1,11 @@
 from typing import Tuple, List
 
 import pygame
+from pygame import gfxdraw
 
 from cube import Cube
 from utils import colors, calculate_distance
+from ray_tracing import trace
 
 WIDTH = 800
 HEIGHT = 600
@@ -43,7 +45,9 @@ def draw_plane(plane_nodes: List[Tuple[float, float, float]], color: str) -> Non
 
 
 cube = Cube()
-cube.rotate(-30, 0, 60)
+cube.rotate(0, 0, 60)
+
+print(trace((50, 50), cube))
 
 FPS = 60
 running = True
@@ -63,6 +67,9 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     screen.fill(colors['black'])
+    a = get_coords((50, 50, 0))
+    gfxdraw.pixel(screen, a[0], a[1], colors['white'])
+    draw_plane(cube.get_plane_coords(1), 'red')
     draw_cube(cube)
     render_fps(screen, clock)
     pygame.display.flip()
