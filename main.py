@@ -4,8 +4,9 @@ import pygame
 from pygame import gfxdraw
 
 from cube import Cube
-from utils import colors, calculate_distance
+from utils import colors, calculate_distance, planes_colors
 from ray_tracing import trace
+import sys
 
 WIDTH = 800
 HEIGHT = 600
@@ -66,10 +67,12 @@ while running:
             running = False
     screen.fill(colors['black'])
     draw_cube(cube)
-    number = trace((0, 0), cube)
-    point = get_coords((0, 0, 0))
-    gfxdraw.pixel(screen, *point, colors['white'])
-    draw_plane(cube.get_plane_coords(number), 'red')
+    for x in range(-200, 200):
+        for y in range(-200, 200):
+            number = trace((x, y), cube)
+            if number != -1:
+                point = get_coords((x, 0, y))
+                gfxdraw.pixel(screen, *point, colors[planes_colors[number]])
     render_fps(screen, clock)
     pygame.display.flip()
     clock.tick(FPS)

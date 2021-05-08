@@ -7,5 +7,13 @@ colors = {
     'yellow': (255, 255, 0),
     'pink': (255, 0, 255),
     'orange': (255, 128, 0)
-
 }
+
+planes_colors = [
+    'green',
+    'red',
+    'blue',
+    'yellow',
+    'pink',
+    'orange'
+]
