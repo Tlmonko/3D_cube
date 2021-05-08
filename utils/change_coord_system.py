@@ -1,7 +1,7 @@
 from math import acos, copysign
 from typing import Tuple
 
-from utils import rotate_z, rotate_y, rotate_x
+from .rotation_matrix import rotate_z, rotate_y, rotate_x
 
 
 def change_coord_system(vector: Tuple[float, float, float],

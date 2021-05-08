@@ -68,17 +68,8 @@ while running:
     draw_cube(cube)
     number = trace((0, 0), cube)
     point = get_coords((0, 0, 0))
-    gfxdraw.pixel(screen, *point, colors['red'])
+    gfxdraw.pixel(screen, *point, colors['white'])
     draw_plane(cube.get_plane_coords(number), 'red')
-    # for x in range(-100, 100, 10):
-        # if x % 10 == 0:
-        #     print(x)
-        # for y in range(-100, 100, 10):
-        #     number = trace((x, y), cube)
-        #     if number != -1:
-        #         point = get_coords((x, 0, y))
-        #         draw_plane(cube.get_plane_coords(number), 'red')
-                # gfxdraw.pixel(screen, *point, colors['red'])
     render_fps(screen, clock)
     pygame.display.flip()
     clock.tick(FPS)

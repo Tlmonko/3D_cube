@@ -1,7 +1,7 @@
 from typing import Tuple, List
 
 from cube import Cube
-from utils import change_coord_system
+from utils import in_polygon
 
 
 def trace(screen_point: Tuple[float, float], cube: Cube) -> int:
@@ -17,22 +17,10 @@ def trace(screen_point: Tuple[float, float], cube: Cube) -> int:
         if not intersection:
             continue
 
-        start = plane_coords[-1]
-        end = plane_coords[0]
-        temp_axis = (end[0] - start[0], end[1] - start[1], end[2] - start[2])
-        new_point = change_coord_system(temp_axis, start, intersection)
-        side = new_point[0] >= 0
-
-        for node_index in range(len(plane_coords) - 1):
-            start = plane_coords[node_index]
-            end = plane_coords[node_index + 1]
-            temp_axis = (end[0] - start[0], end[1] - start[1], end[2] - start[2])
-            new_point = change_coord_system(temp_axis, start, intersection)
-            temp_side = new_point[0] >= 0
-            if temp_side != side:
-                break
-        else:
+        if in_polygon(screen_point[0], screen_point[1], [coord[0] for coord in plane_coords],
+                      [coord[2] for coord in plane_coords]):
             intersections_with_planes.append((intersection, plane_index))
+
     if not intersections_with_planes:
         return -1
     print(intersections_with_planes)
