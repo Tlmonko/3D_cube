@@ -1,7 +1,9 @@
-def in_polygon(x, y, x_polygon, y_polygon):
-    result = False
-    for i in range(len(y_polygon)):
-        if (((y_polygon[i] <= y < y_polygon[i - 1]) or (y_polygon[i - 1] <= y < y_polygon[i])) and
-                (x > (x_polygon[i - 1] - x_polygon[i]) * (y - y_polygon[i]) / (y_polygon[i - 1] - y_polygon[i]) +
-                 x_polygon[i])): result = not result
-    return result
+from typing import List, Tuple
+
+
+def in_polygon(x: float, y: float, points: List[Tuple[float, float]]) -> bool:
+    signes = []
+    for i in range(-1, len(points) - 1):
+        signes.append((x - points[i][0]) * (points[i + 1][1] - points[i][1]) - (points[i + 1][0] - points[i][0]) * (
+                    y - points[i][1]) > 0)
+    return all(signes) or not any(signes)

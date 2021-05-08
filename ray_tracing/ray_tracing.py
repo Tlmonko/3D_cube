@@ -17,8 +17,7 @@ def trace(screen_point: Tuple[float, float], cube: Cube) -> int:
         if not intersection:
             continue
 
-        if in_polygon(screen_point[0], screen_point[1], [coord[0] for coord in plane_coords],
-                      [coord[2] for coord in plane_coords]):
+        if in_polygon(screen_point[0], screen_point[1], [(coord[0], coord[2]) for coord in plane_coords]):
             intersections_with_planes.append((intersection, plane_index))
 
     if not intersections_with_planes:
