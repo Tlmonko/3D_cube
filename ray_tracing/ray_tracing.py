@@ -23,4 +23,4 @@ def trace(screen_point: Tuple[float, float], cube: Cube) -> int:
 
     if not intersections_with_planes:
         return -1
-    return min(intersections_with_planes, key=lambda intersection: intersection[1])[1]
+    return min(intersections_with_planes, key=lambda intersection: intersection[0][1])[1]
