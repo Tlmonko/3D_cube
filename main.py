@@ -45,9 +45,7 @@ def draw_plane(plane_nodes: List[Tuple[float, float, float]], color: str) -> Non
 
 
 cube = Cube()
-cube.rotate(0, 0, 60)
-
-print(trace((50, 50), cube))
+cube.rotate(-30, 0, 60)
 
 FPS = 60
 running = True
@@ -67,10 +65,20 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     screen.fill(colors['black'])
-    a = get_coords((50, 50, 0))
-    gfxdraw.pixel(screen, a[0], a[1], colors['white'])
-    draw_plane(cube.get_plane_coords(1), 'red')
     draw_cube(cube)
+    number = trace((0, 0), cube)
+    point = get_coords((0, 0, 0))
+    gfxdraw.pixel(screen, *point, colors['red'])
+    draw_plane(cube.get_plane_coords(number), 'red')
+    # for x in range(-100, 100, 10):
+        # if x % 10 == 0:
+        #     print(x)
+        # for y in range(-100, 100, 10):
+        #     number = trace((x, y), cube)
+        #     if number != -1:
+        #         point = get_coords((x, 0, y))
+        #         draw_plane(cube.get_plane_coords(number), 'red')
+                # gfxdraw.pixel(screen, *point, colors['red'])
     render_fps(screen, clock)
     pygame.display.flip()
     clock.tick(FPS)

@@ -19,7 +19,7 @@ def change_coord_system(vector: Tuple[float, float, float],
 
 
 if __name__ == '__main__':
-    vector_test = (-1, 0, 0)
+    vector_test = (0, 1, 0)
     point_test = (1, 1, 1)
     point_new = change_coord_system(vector_test, (0, 0, 0), point_test)
     print(point_new)
