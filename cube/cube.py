@@ -63,3 +63,59 @@ class Cube:
 
     def get_plane(self, number: int) -> Plane:
         return self.planes[number]
+
+    def rasterize_plane(self, number: int) -> List[Tuple[int, int]]:
+        plane_coords = self.get_plane_coords(number)
+        # print(plane_coords)
+        coords = plane_coords.copy()
+        top_point_index = coords.index(max(coords, key=lambda coord: coord[2]))
+        bottom_point_index = coords.index(min(coords, key=lambda coord: coord[2]))
+        top_point = coords.pop(top_point_index)
+        bottom_point = coords.pop(bottom_point_index)
+        left_point = min(coords, key=lambda coord: coord[0])
+        right_point = max(coords, key=lambda coord: coord[0])
+        if right_point == top_point or right_point == bottom_point:
+            return []
+        if len([coord for coord in plane_coords if coord[2] == top_point[2]]) > 1:
+            top_points = [point for point in plane_coords if point[2] == top_point[2]]
+            bottom_points = [point for point in plane_coords if point[2] == bottom_point[2]]
+            left_points = [min(top_points, key=lambda point: point[0]), min(bottom_points, key=lambda point: point[0])]
+            right_points = [max(top_points, key=lambda point: point[0]), max(bottom_points, key=lambda point: point[0])]
+            if left_points[0][0] == left_points[1][0]:
+                k1 = 0
+            else:
+                k1 = (left_points[1][2] - left_points[0][2]) / (
+                        left_points[1][0] - left_points[0][0])
+            b1 = left_points[0][0] - k1 * left_points[0][2]
+            if right_points[0][0] == right_points[1][0]:
+                k2 = 0
+            else:
+                k2 = (right_points[1][2] - right_points[0][2]) / (
+                        right_points[1][0] - right_points[0][0])
+            b2 = right_points[0][0] - k2 * right_points[0][2]
+            result = []
+            for y in range(int(bottom_point[2]), int(top_point[2])):
+                for x in range(int(k1 * y + b1), int(k2 * y + b2)):
+                    result.append((x, y))
+            return result
+        else:
+            """Lines numerating from 1 to 4 by clockwise from bottom left"""
+            k1 = (bottom_point[2] - left_point[2]) / (bottom_point[0] - left_point[0])
+            k2 = (left_point[2] - top_point[2]) / (left_point[0] - top_point[0])
+            k3 = (top_point[2] - right_point[2]) / (top_point[0] - right_point[0])
+            k4 = (right_point[2] - bottom_point[2]) / (right_point[0] - bottom_point[0])
+            b1 = bottom_point[0] - k1 * bottom_point[2]
+            b2 = left_point[0] - k1 * left_point[2]
+            b3 = top_point[0] - k1 * top_point[2]
+            b4 = right_point[0] - k1 * right_point[2]
+            result = []
+            for y in range(int(bottom_point[2]), int(top_point[2])):
+                for x in range(int(max(k1 * y + b1, k2 * y + b2)),
+                               int(min(k3 * y + b3, k4 * y + b4))):
+                    result.append((x, y))
+            return result
+
+
+if __name__ == '__main__':
+    cube = Cube()
+    print(cube.rasterize_plane(1))
