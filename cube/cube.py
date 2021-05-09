@@ -79,8 +79,10 @@ class Cube:
         if len([coord for coord in plane_coords if coord[2] == top_point[2]]) > 1:
             top_points = [point for point in plane_coords if point[2] == top_point[2]]
             bottom_points = [point for point in plane_coords if point[2] == bottom_point[2]]
-            left_points = [min(top_points, key=lambda point: point[0]), min(bottom_points, key=lambda point: point[0])]
-            right_points = [max(top_points, key=lambda point: point[0]), max(bottom_points, key=lambda point: point[0])]
+            left_points = [min(top_points, key=lambda point: point[0]),
+                           min(bottom_points, key=lambda point: point[0])]
+            right_points = [max(top_points, key=lambda point: point[0]),
+                            max(bottom_points, key=lambda point: point[0])]
             if left_points[0][0] == left_points[1][0]:
                 k1 = 0
             else:
