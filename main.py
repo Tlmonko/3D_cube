@@ -5,7 +5,7 @@ from pygame import gfxdraw
 
 from cube import Cube
 from utils import colors, calculate_distance, planes_colors
-from ray_tracing import trace
+from z_buffer import ZBuffer
 import sys
 
 WIDTH = 800
@@ -50,6 +50,8 @@ cube.rotate(-30, 0, 60)
 
 FPS = 60
 running = True
+
+z_buffer = ZBuffer(WIDTH, HEIGHT, 'black')
 while running:
     keys = pygame.key.get_pressed()
     rotation = [0, 0, 0]
@@ -67,12 +69,13 @@ while running:
             running = False
     screen.fill(colors['black'])
     draw_cube(cube)
-    for x in range(-200, 200):
-        for y in range(-200, 200):
-            number = trace((x, y), cube)
-            if number != -1:
-                point = get_coords((x, 0, y))
-                gfxdraw.pixel(screen, *point, colors[planes_colors[number]])
+    for plane_index in range(6):
+        plane = cube.rasterize_plane(plane_index)
+        z_buffer.add_points(plane, planes_colors[plane_index])
+    screen_pixels = z_buffer.screen
+    for x in range(WIDTH):
+        for y in range(HEIGHT):
+            gfxdraw.pixel(screen, x, y, colors[screen_pixels[x][y]])
     render_fps(screen, clock)
     pygame.display.flip()
     clock.tick(FPS)

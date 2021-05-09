@@ -99,15 +99,27 @@ class Cube:
             for y in range(int(bottom_point[2]), int(top_point[2])):
                 for x in range(int(k1 * y + b1), int(k2 * y + b2)):
                     result.append((x, -(
-                                plane.normal[0] * x + plane.normal[2] * y + plane.coefficient) /
+                            plane.normal[0] * x + plane.normal[2] * y + plane.coefficient) /
                                    plane.normal[1], y))
             return result
         else:
             """Lines numerating from 1 to 4 by clockwise from bottom left"""
-            k1 = (bottom_point[2] - left_point[2]) / (bottom_point[0] - left_point[0])
-            k2 = (left_point[2] - top_point[2]) / (left_point[0] - top_point[0])
-            k3 = (top_point[2] - right_point[2]) / (top_point[0] - right_point[0])
-            k4 = (right_point[2] - bottom_point[2]) / (right_point[0] - bottom_point[0])
+            if bottom_point[0] == left_point[0]:
+                k1 = 0
+            else:
+                k1 = (bottom_point[2] - left_point[2]) / (bottom_point[0] - left_point[0])
+            if left_point[0] == top_point[0]:
+                k2 = 0
+            else:
+                k2 = (left_point[2] - top_point[2]) / (left_point[0] - top_point[0])
+            if top_point[0] == right_point[0]:
+                k3 = 0
+            else:
+                k3 = (top_point[2] - right_point[2]) / (top_point[0] - right_point[0])
+            if right_point[0] == bottom_point[0]:
+                k4 = 0
+            else:
+                k4 = (right_point[2] - bottom_point[2]) / (right_point[0] - bottom_point[0])
             b1 = bottom_point[0] - k1 * bottom_point[2]
             b2 = left_point[0] - k1 * left_point[2]
             b3 = top_point[0] - k1 * top_point[2]
@@ -117,7 +129,7 @@ class Cube:
                 for x in range(int(max(k1 * y + b1, k2 * y + b2)),
                                int(min(k3 * y + b3, k4 * y + b4))):
                     result.append((x, -(
-                                plane.normal[0] * x + plane.normal[2] * y + plane.coefficient) /
+                            plane.normal[0] * x + plane.normal[2] * y + plane.coefficient) /
                                    plane.normal[1], y))
             return result
 
