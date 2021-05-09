@@ -6,7 +6,7 @@ from utils import rotate_z, rotate_y, rotate_x, Plane
 
 class Cube:
     center: Tuple[float, float, float]
-    nodes: List[Tuple[float, float, float]]
+    nodes: List[Tuple[int, int, int]]
     rotation: List[int]
     planes_points: List[List[int]]
     planes: List[Plane]
@@ -83,19 +83,21 @@ class Cube:
                            min(bottom_points, key=lambda point: point[0])]
             right_points = [max(top_points, key=lambda point: point[0]),
                             max(bottom_points, key=lambda point: point[0])]
+            # print(left_points, right_points, top_points, bottom_points)
             if left_points[0][0] == left_points[1][0]:
                 k1 = 0
             else:
-                k1 = (left_points[1][2] - left_points[0][2]) / (
-                        left_points[1][0] - left_points[0][0])
+                k1 = (left_points[1][0] - left_points[0][0]) / (
+                        left_points[1][2] - left_points[0][2])
             b1 = left_points[0][0] - k1 * left_points[0][2]
             if right_points[0][0] == right_points[1][0]:
                 k2 = 0
             else:
-                k2 = (right_points[1][2] - right_points[0][2]) / (
-                        right_points[1][0] - right_points[0][0])
+                k2 = (right_points[1][0] - right_points[0][0]) / (
+                        right_points[1][2] - right_points[0][2])
             b2 = right_points[0][0] - k2 * right_points[0][2]
             result = []
+            # print(k1, b1, k2, b2)
             for y in range(int(bottom_point[2]), int(top_point[2])):
                 for x in range(int(k1 * y + b1), int(k2 * y + b2)):
                     result.append((x, -(
@@ -107,19 +109,19 @@ class Cube:
             if bottom_point[0] == left_point[0]:
                 k1 = 0
             else:
-                k1 = (bottom_point[2] - left_point[2]) / (bottom_point[0] - left_point[0])
+                k1 = (bottom_point[0] - left_point[0]) / (bottom_point[2] - left_point[2])
             if left_point[0] == top_point[0]:
                 k2 = 0
             else:
-                k2 = (left_point[2] - top_point[2]) / (left_point[0] - top_point[0])
+                k2 = (left_point[0] - top_point[0]) / (left_point[2] - top_point[2])
             if top_point[0] == right_point[0]:
                 k3 = 0
             else:
-                k3 = (top_point[2] - right_point[2]) / (top_point[0] - right_point[0])
+                k3 = (top_point[0] - right_point[0]) / (top_point[2] - right_point[2])
             if right_point[0] == bottom_point[0]:
                 k4 = 0
             else:
-                k4 = (right_point[2] - bottom_point[2]) / (right_point[0] - bottom_point[0])
+                k4 = (right_point[0] - bottom_point[0]) / (right_point[2] - bottom_point[2])
             b1 = bottom_point[0] - k1 * bottom_point[2]
             b2 = left_point[0] - k1 * left_point[2]
             b3 = top_point[0] - k1 * top_point[2]

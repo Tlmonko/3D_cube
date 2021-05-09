@@ -46,7 +46,7 @@ def draw_plane(plane_nodes: List[Tuple[float, float, float]], color: str) -> Non
 
 
 cube = Cube()
-cube.rotate(-30, 0, 60)
+cube.rotate(-10, 0, 0)
 
 FPS = 60
 running = True
@@ -76,6 +76,7 @@ while running:
     for x in range(WIDTH):
         for y in range(HEIGHT):
             gfxdraw.pixel(screen, x, y, colors[screen_pixels[y][x]])
+    z_buffer.update()
     render_fps(screen, clock)
     pygame.display.flip()
     clock.tick(FPS)
