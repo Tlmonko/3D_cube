@@ -75,7 +75,7 @@ while running:
     screen_pixels = z_buffer.screen
     for x in range(WIDTH):
         for y in range(HEIGHT):
-            gfxdraw.pixel(screen, x, y, colors[screen_pixels[x][y]])
+            gfxdraw.pixel(screen, x, y, colors[screen_pixels[y][x]])
     render_fps(screen, clock)
     pygame.display.flip()
     clock.tick(FPS)
