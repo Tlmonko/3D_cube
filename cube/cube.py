@@ -64,9 +64,9 @@ class Cube:
     def get_plane(self, number: int) -> Plane:
         return self.planes[number]
 
-    def rasterize_plane(self, number: int) -> List[Tuple[int, int]]:
+    def rasterize_plane(self, number: int) -> List[Tuple[int, int, int]]:
         plane_coords = self.get_plane_coords(number)
-        # print(plane_coords)
+        plane = self.get_plane(number)
         coords = plane_coords.copy()
         top_point_index = coords.index(max(coords, key=lambda coord: coord[2]))
         bottom_point_index = coords.index(min(coords, key=lambda coord: coord[2]))
@@ -98,7 +98,9 @@ class Cube:
             result = []
             for y in range(int(bottom_point[2]), int(top_point[2])):
                 for x in range(int(k1 * y + b1), int(k2 * y + b2)):
-                    result.append((x, y))
+                    result.append((x, -(
+                                plane.normal[0] * x + plane.normal[2] * y + plane.coefficient) /
+                                   plane.normal[1], y))
             return result
         else:
             """Lines numerating from 1 to 4 by clockwise from bottom left"""
@@ -114,7 +116,9 @@ class Cube:
             for y in range(int(bottom_point[2]), int(top_point[2])):
                 for x in range(int(max(k1 * y + b1, k2 * y + b2)),
                                int(min(k3 * y + b3, k4 * y + b4))):
-                    result.append((x, y))
+                    result.append((x, -(
+                                plane.normal[0] * x + plane.normal[2] * y + plane.coefficient) /
+                                   plane.normal[1], y))
             return result
 
 
