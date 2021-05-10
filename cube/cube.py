@@ -84,13 +84,13 @@ class Cube:
             right_points = [max(top_points, key=lambda point: point[0]),
                             max(bottom_points, key=lambda point: point[0])]
             # print(left_points, right_points, top_points, bottom_points)
-            if left_points[0][0] == left_points[1][0]:
+            if left_points[0][2] == left_points[1][2]:
                 k1 = 0
             else:
                 k1 = (left_points[1][0] - left_points[0][0]) / (
                         left_points[1][2] - left_points[0][2])
             b1 = left_points[0][0] - k1 * left_points[0][2]
-            if right_points[0][0] == right_points[1][0]:
+            if right_points[0][2] == right_points[1][2]:
                 k2 = 0
             else:
                 k2 = (right_points[1][0] - right_points[0][0]) / (
@@ -106,19 +106,19 @@ class Cube:
             return result
         else:
             """Lines numerating from 1 to 4 by clockwise from bottom left"""
-            if bottom_point[0] == left_point[0]:
+            if bottom_point[2] == left_point[2]:
                 k1 = 0
             else:
                 k1 = (bottom_point[0] - left_point[0]) / (bottom_point[2] - left_point[2])
-            if left_point[0] == top_point[0]:
+            if left_point[2] == top_point[2]:
                 k2 = 0
             else:
                 k2 = (left_point[0] - top_point[0]) / (left_point[2] - top_point[2])
-            if top_point[0] == right_point[0]:
+            if top_point[2] == right_point[2]:
                 k3 = 0
             else:
                 k3 = (top_point[0] - right_point[0]) / (top_point[2] - right_point[2])
-            if right_point[0] == bottom_point[0]:
+            if right_point[2] == bottom_point[2]:
                 k4 = 0
             else:
                 k4 = (right_point[0] - bottom_point[0]) / (right_point[2] - bottom_point[2])
