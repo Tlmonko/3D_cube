@@ -1,7 +1,7 @@
 from typing import Tuple, List
 
+import numpy as np
 import pygame
-from pygame import gfxdraw
 
 from cube import Cube
 from utils import colors, calculate_distance, planes_colors
@@ -50,7 +50,7 @@ cube.rotate(0, 0, 30)
 FPS = 60
 running = True
 
-z_buffer = ZBuffer(WIDTH, HEIGHT, 'black')
+z_buffer = ZBuffer(WIDTH, HEIGHT, colors['black'])
 while running:
     keys = pygame.key.get_pressed()
     rotation = [0, 0, 0]
@@ -70,11 +70,9 @@ while running:
     draw_cube(cube)
     for plane_index in range(6):
         plane = cube.rasterize_plane(plane_index)
-        z_buffer.add_points(plane, planes_colors[plane_index])
-    screen_pixels = z_buffer.screen
-    for x in range(WIDTH):
-        for y in range(HEIGHT):
-            gfxdraw.pixel(screen, x, y, colors[screen_pixels[y][x]])
+        z_buffer.add_points(plane, colors[planes_colors[plane_index]])
+    screen_pixels = z_buffer.get_screen()
+    pygame.surfarray.blit_array(screen, screen_pixels)
     z_buffer.update()
     render_fps(screen, clock)
     pygame.display.flip()
