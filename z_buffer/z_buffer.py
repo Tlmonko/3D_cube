@@ -17,7 +17,6 @@ class ZBuffer:
 
     def add_points(self, points: List[Tuple[int, int, int]], color: str) -> None:
         for point in points:
-            # print(point)
             if point[1] < self.buffer[point[2] + self.height // 2][point[0] + self.width // 2]:
                 self.buffer[point[2] + self.height // 2][point[0] + self.width // 2] = point[1]
                 self.screen[point[2] + self.height // 2][point[0] + self.width // 2] = color

@@ -123,9 +123,9 @@ class Cube:
             else:
                 k4 = (right_point[0] - bottom_point[0]) / (right_point[2] - bottom_point[2])
             b1 = bottom_point[0] - k1 * bottom_point[2]
-            b2 = left_point[0] - k1 * left_point[2]
-            b3 = top_point[0] - k1 * top_point[2]
-            b4 = right_point[0] - k1 * right_point[2]
+            b2 = left_point[0] - k2 * left_point[2]
+            b3 = top_point[0] - k3 * top_point[2]
+            b4 = right_point[0] - k4 * right_point[2]
             result = []
             for y in range(int(bottom_point[2]), int(top_point[2])):
                 for x in range(int(max(k1 * y + b1, k2 * y + b2)),

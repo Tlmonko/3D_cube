@@ -6,7 +6,6 @@ from pygame import gfxdraw
 from cube import Cube
 from utils import colors, calculate_distance, planes_colors
 from z_buffer import ZBuffer
-import sys
 
 WIDTH = 800
 HEIGHT = 600
@@ -46,7 +45,7 @@ def draw_plane(plane_nodes: List[Tuple[float, float, float]], color: str) -> Non
 
 
 cube = Cube()
-cube.rotate(-10, 0, 0)
+cube.rotate(0, 0, 30)
 
 FPS = 60
 running = True
