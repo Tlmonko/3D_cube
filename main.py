@@ -45,7 +45,7 @@ def draw_plane(plane_nodes: List[Tuple[float, float, float]], color: str) -> Non
 
 
 cube = Cube()
-cube.rotate(0, 0, 30)
+cube.rotate(-30, 0, 30)
 
 FPS = 60
 running = True
